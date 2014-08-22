@@ -8,8 +8,8 @@ define(function() {
 	}
 	
 	Resource.prototype = {
-		get json() {
-			return this.json_;
+		get data() {
+			return this.data_;
 		},
 		
 		get error() {
@@ -21,7 +21,7 @@ define(function() {
 			this.error_ = null;
 			
 			this.$http_.get(this.src_).then(function handleGetResponse(response) {
-				this.json_ = response.data;
+				this.data_ = response.data;
 				this.isGetting_ = false;
 			}.bind(this), function handleGetError(error) {
 				this.error_ = error || true;

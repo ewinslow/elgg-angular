@@ -6,6 +6,7 @@ define(function(require) {
 	return function(elggResourceFactory, $parse, elgg) {
         return {
             restrict: 'E',
+            scope: true,
             link: function($scope, $element, $attrs) {
             	var aliasExpression = $parse($attrs['as'] || '$resource');
             	

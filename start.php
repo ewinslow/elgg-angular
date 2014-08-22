@@ -11,12 +11,26 @@ function elgg_angular_init() {
 }
 
 
+function elgg_menu_resource($menu, array $vars = array()) {
+	$context = get_input('context', '', false);
+	
+	if (!empty($context)) {
+		elgg_push_context($context);
+	}
+	
+	$vars['sort_by'] = get_input('sort', $vars['sort_by'], false);
+	
+	return elgg_view_menu($menu, $vars);
+}
+
+
+
 function elgg_api_page_handler($segments, $name) {
-	switch ($segments[0]) {
-		case 'users': // elgg-api/users/:id
-			$user = get_user($segments[1]);
-					
-			echo json_encode(array(
+	$resources = array(
+		'/entities/(\d+)' => function($matches) {
+			$user = get_user($matches[1]);
+			
+			return array(
 				'name' => $user->getDisplayName(),
 				'guid' => $user->getGuid(),
 				'url' => $user->getUrl(),
@@ -25,13 +39,39 @@ function elgg_api_page_handler($segments, $name) {
 					'tiny' => $user->getIconURL('tiny'),
 					'small' => $user->getIconURL('small'),
 				),
+			);
+		},
+		'/entities/(\d+)/menus/([a-z_-]+)' => function($matches) {
+			return elgg_menu_resource($matches[2], array(
+				'entity' => get_entity($matches[1]),
 			));
+		},
+		'/menus/([a-z_-]+)' => function($matches) {
+			return elgg_menu_resource($matches[1]);
+		},
+	);
+	
+	$url = "/" . implode($segments, '/');
+	
+	foreach ($resources as $route => $callback) {
+		$pattern = "#^$route$#";
+
+		$matches = array();
+		
+		if (preg_match($pattern, $url, $matches)) {
+			$result = $callback($matches);
+			
+			if (is_array($result)) {
+				echo json_encode($result);
+			} else {
+				echo $result;
+			}
 			
 			return true;
-	
-		default:
-			return null;
+		}
 	}
+	
+	return null;
 }
 
 elgg_register_event_handler('init', 'system', 'elgg_angular_init');
