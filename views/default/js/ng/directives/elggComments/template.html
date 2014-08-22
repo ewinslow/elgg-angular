@@ -1,0 +1,44 @@
+<elgg-resource src="{{'/elgg-api/entities/' + entity + '/comments'}}"
+               as="comments">
+	<h3>Comments</h3>
+	
+	<ol>
+		<li ng-repeat="comment in comments.data.items" class="mbn">
+			<a name="comment-{{comment.guid}}"></a>
+			<elgg-menu type="entity"
+			           entity="{{comment.guid}}"
+			           handler="comment"
+			           sort="priority">
+			</elgg-menu>
+			<div class="elgg-image-block">
+				<div class="elgg-image">
+					<img ng-src="{{comment.owner.icons.small}}">
+				</div>
+				<div class="elgg-body">
+					<a href="{{comment.owner.url}}">
+						{{comment.owner.name}}
+					</a>
+					<time>{{comment.time_created}}</time>
+
+					<div class="elgg-output elgg-inner" data-role="comment-text"
+					     ng-bind-html="comment.description">
+					</div>
+				</div>
+			</div>
+		</li>
+	</ol>
+	
+	
+	<form class="elgg-image-block" ng-submit="comments.post(newComment);">
+		<elgg-resource src="/elgg-api/users/me" as="me" class="elgg-image">
+			<img ng-src="{{me.data.icons.small}}">
+		</elgg-resource>
+		<div class="elgg-body">
+			<textarea ng-model="newComment.description"
+			          placeholder="Leave a comment...">
+				
+			</textarea>
+			<button>Comment</button>
+		</div>
+	</form>
+</elgg-resource>

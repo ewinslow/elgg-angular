@@ -10,6 +10,7 @@ define(function(require) {
 		ngResource.name,
 		moment.name,
 	])
+		.directive('elggComments', require('../directives/elggComments/factory'))
 		.directive('elggFocusModel', require('../directives/elggFocusModel/factory'))
 		.directive('elggMenu', require('../directives/elggMenu/factory'))
 		.directive('elggResource', require('../directives/elggResource/factory'))
