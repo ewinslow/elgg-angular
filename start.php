@@ -17,9 +17,14 @@ function elgg_api_page_handler($segments, $name) {
 			$user = get_user($segments[1]);
 					
 			echo json_encode(array(
-				'displayName' => $user->getDisplayName(),
+				'name' => $user->getDisplayName(),
 				'guid' => $user->getGuid(),
 				'url' => $user->getUrl(),
+				'icons' => array(
+					'topbar' => $user->getIconURL('topbar'),
+					'tiny' => $user->getIconURL('tiny'),
+					'small' => $user->getIconURL('small'),
+				),
 			));
 			
 			return true;
