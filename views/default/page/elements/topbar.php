@@ -5,4 +5,5 @@
  */
 
 // Elgg logo
-echo elgg_view_menu('topbar', array('sort_by' => 'priority', array('elgg-menu-hz')));
+?>
+<elgg-menu type="topbar" sort="priority"></elgg-menu>

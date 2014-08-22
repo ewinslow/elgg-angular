@@ -41,9 +41,7 @@ elgg_pop_context();
 		</elgg-resource>
 	</div>
 	<div class="elgg-body">
-		<elgg-resource src="/elgg-api/entities/<?= $owner_guid ?>/menus/owner_block?context=owner_block"
-			          as="menu" ng-bind-html="menu.data">
-		</elgg-resource>
+		<elgg-menu type="owner_block" entity="<?= $owner_guid ?>"></elgg-menu>
 		<?= $extension ?>
 	</div>
 </div>

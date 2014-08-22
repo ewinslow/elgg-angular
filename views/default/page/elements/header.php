@@ -11,5 +11,4 @@ echo elgg_view('page/elements/header_logo', $vars);
 echo elgg_view('core/account/login_dropdown');
 
 ?>
-<elgg-resource src="/elgg-api/menus/site" ng-bind-html="$resource.data">
-</elgg-resource>
+<elgg-menu type="site"></elgg-menu>

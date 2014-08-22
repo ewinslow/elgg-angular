@@ -11,6 +11,7 @@ define(function(require) {
 		moment.name,
 	])
 		.directive('elggFocusModel', require('../directives/elggFocusModel/factory'))
+		.directive('elggMenu', require('../directives/elggMenu/factory'))
 		.directive('elggResource', require('../directives/elggResource/factory'))
 		.directive('elggResponses', require('../directives/elggResponses/factory'))
 		.directive('elggRiver', require('../directives/elggRiver/factory'))
