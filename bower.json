@@ -1,0 +1,31 @@
+{
+  "name": "elgg-angular",
+  "version": "0.0.0",
+  "homepage": "https://github.com/ewinslow/elgg-angular",
+  "authors": [
+    "Evan Winslow <evan@elgg.org>"
+  ],
+  "moduleType": [
+    "amd"
+  ],
+  "keywords": [
+    "elgg",
+    "angular"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angularjs": "~1.2.22",
+    "jquery": "~2.1.1",
+    "moment": "~2.8.1",
+    "angular-sanitize": "~1.2.22",
+    "angular-resource": "~1.2.22"
+  }
+}

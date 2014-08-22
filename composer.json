@@ -1,0 +1,16 @@
+{
+    "name": "elgg/angular",
+    "description": "Adds AngularJS integration to Elgg",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Evan Winslow",
+            "email": "evan@elgg.org"
+        }
+    ],
+    "version": "0.0.1",
+    "minimum-stability": "dev",
+    "require": {
+
+    }
+}
