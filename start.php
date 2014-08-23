@@ -113,6 +113,10 @@ function elgg_api_page_handler($segments, $name) {
 	$url = "/" . implode($segments, '/');
 	$method = strtolower($_SERVER['REQUEST_METHOD']);
 	
+	if ($method != 'get') {
+		action_gatekeeper();
+	}
+	
 	foreach ($resources as $route => $callbacks) {
 		$pattern = "#^$route$#";
 
