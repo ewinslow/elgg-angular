@@ -57,37 +57,49 @@ function elgg_api_page_handler($segments, $name) {
 			
 			return elgg_entity_resource($entity);
 		},
-		'/entities/(\d+)/comments' => function($matches) {
-			$options = array(
-				'type' => 'object',
-				'subtype' => 'comment',
-				'container_guid' => $matches[1],
-				'reverse_order_by' => true,
-				'full_view' => true,
-				'limit' => get_input('limit', 50),
-			);
-			
-			$options['count'] = true;
-			$count = elgg_get_entities($options);
-			
-			$comments = array();
-			
-			if ($count) {
-				$options['count'] = false;
-				$comments = elgg_get_entities($options);
-			}
-			
-			$result = array(
-				'items' => array(),
-				'count' => $count,
-			);
-			
-			foreach ($comments as $comment) {
-				$result['items'][] = elgg_entity_resource($comment);
-			}
-			
-			return $result;
-		},
+		'/entities/(\d+)/comments' => array(
+			'get' => function($matches) {
+				$options = array(
+					'type' => 'object',
+					'subtype' => 'comment',
+					'container_guid' => $matches[1],
+					'reverse_order_by' => true,
+					'full_view' => true,
+					'limit' => get_input('limit', 50),
+				);
+				
+				$options['count'] = true;
+				$count = elgg_get_entities($options);
+				
+				$comments = array();
+				
+				if ($count) {
+					$options['count'] = false;
+					$comments = elgg_get_entities($options);
+				}
+				
+				$result = array(
+					'items' => array(),
+					'count' => $count,
+				);
+				
+				foreach ($comments as $comment) {
+					$result['items'][] = elgg_entity_resource($comment);
+				}
+				
+				return $result;
+			},
+			'post' => function($matches) {
+				$data = json_decode(file_get_contents('php://input'));
+				
+				$comment = new ElggComment();
+				$comment->container_guid = $matches[1];
+				$comment->description = $data->description;
+				$comment->save();
+				
+				return elgg_entity_resource($comment);
+			},
+		),
 		'/entities/(\d+)/menus/([a-z_-]+)' => function($matches) {
 			return elgg_menu_resource($matches[2], array(
 				'entity' => get_entity($matches[1]),
@@ -99,14 +111,22 @@ function elgg_api_page_handler($segments, $name) {
 	);
 	
 	$url = "/" . implode($segments, '/');
+	$method = strtolower($_SERVER['REQUEST_METHOD']);
 	
-	foreach ($resources as $route => $callback) {
+	foreach ($resources as $route => $callbacks) {
 		$pattern = "#^$route$#";
 
 		$matches = array();
 		
 		if (preg_match($pattern, $url, $matches)) {
-			$result = $callback($matches);
+			
+			if (is_callable($callbacks)) {
+				$result = $callbacks($matches);
+			} elseif (is_callable($callbacks[$method])) {
+				$result = $callbacks[$method]($matches);
+			} else {
+				return null;
+			}
 			
 			if (is_array($result)) {
 				header("Content-Type: application/json");
