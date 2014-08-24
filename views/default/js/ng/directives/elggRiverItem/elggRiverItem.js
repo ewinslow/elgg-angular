@@ -1,7 +1,4 @@
-// <script>
 define(function(require) {
-	var $ = require('jquery');
-	
 	return function() {
         return {
             restrict: 'A',
@@ -9,8 +6,8 @@ define(function(require) {
             template: require("text!./elggRiverItem.html"),
             controller: require('./ElggRiverItemCtrl'),
             scope: {
-	        'activity': '='
-	    },
+    	        'activity': '='
+    	    },
         };
     };
 });

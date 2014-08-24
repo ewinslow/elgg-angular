@@ -1,7 +1,4 @@
-// <script>
 define(function(require) {
-    var template = require('text!./elggComments.html');
-    
 	/**
 	 * @ngInject
 	 */
@@ -11,7 +8,7 @@ define(function(require) {
             scope: {
                 'entity': '@',
             },
-            template: template,
+            template: require('text!./elggComments.html'),
         };
     };
 });

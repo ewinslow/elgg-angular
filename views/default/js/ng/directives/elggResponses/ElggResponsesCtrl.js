@@ -1,4 +1,3 @@
-// <script>
 define(function(require) {
 	var $ = require('jquery');
 	var Collection = require('activitystreams/Collection');

@@ -1,7 +1,4 @@
-// <script>
 define(function(require) {
-    var template = require('text!./elggMenu.html');
-    
 	/**
 	 * @ngInject
 	 */
@@ -12,7 +9,7 @@ define(function(require) {
                 'type': '@',
                 'entity': '@',
             },
-            template: template,
+            template: require('text!./elggMenu.html'),
         };
     };
 });

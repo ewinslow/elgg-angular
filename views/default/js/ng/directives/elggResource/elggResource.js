@@ -1,4 +1,3 @@
-// <script>
 define(function(require) {
 	/**
 	 * @ngInject
