@@ -28,7 +28,7 @@ function unix_to_atom($timestamp) {
 	return $datetime->setTimestamp($timestamp)->format(DateTime::ATOM);
 }
 
-function elgg_entity_resource(ElggEntity $entity = null) {
+function elgg_entity_resource(ElggEntity $entity = null, $recursive = true) {
 	if (!$entity) {
 		return null;
 	}
@@ -36,7 +36,8 @@ function elgg_entity_resource(ElggEntity $entity = null) {
 	return array(
 		'description' => $entity->description,
 		'guid' => $entity->guid,
-		'owner' => elgg_entity_resource($entity->getOwnerEntity()),
+		'container' => $recursive ? elgg_entity_resource($entity->getContainerEntity(), false) : null,
+		'owner' => $recursive ? elgg_entity_resource($entity->getOwnerEntity(), false) : null,
 		'icons' => array(
 			'topbar' => $entity->getIconURL('topbar'),
 			'tiny' => $entity->getIconURL('tiny'),
@@ -47,6 +48,7 @@ function elgg_entity_resource(ElggEntity $entity = null) {
 		),
 		'name' => $entity->getDisplayName(),
 		'time_created' => unix_to_atom($entity->time_created),
+		'time_updated' => unix_to_atom($entity->time_updated),
 		'url' => $entity->getUrl(),
 	);
 }
@@ -55,65 +57,11 @@ function elgg_entity_resource(ElggEntity $entity = null) {
 
 function elgg_api_page_handler($segments, $name) {
 	$resources = array(
-		'/users/me' => function($matches) {
-			return elgg_entity_resource(elgg_get_logged_in_user_entity());
-		},
-		'/entities/(\d+)' => function($matches) {
-			$entity = get_entity($matches[1]);
-			
-			return elgg_entity_resource($entity);
-		},
-		'/entities/(\d+)/comments' => array(
-			'get' => function($matches) {
-				$options = array(
-					'type' => 'object',
-					'subtype' => 'comment',
-					'container_guid' => $matches[1],
-					'reverse_order_by' => true,
-					'full_view' => true,
-					'limit' => get_input('limit', 50),
-				);
-				
-				$options['count'] = true;
-				$count = elgg_get_entities($options);
-				
-				$comments = array();
-				
-				if ($count) {
-					$options['count'] = false;
-					$comments = elgg_get_entities($options);
-				}
-				
-				$result = array(
-					'items' => array(),
-					'count' => $count,
-				);
-				
-				foreach ($comments as $comment) {
-					$result['items'][] = elgg_entity_resource($comment);
-				}
-				
-				return $result;
-			},
-			'post' => function($matches) {
-				$data = json_decode(file_get_contents('php://input'));
-				
-				$comment = new ElggComment();
-				$comment->container_guid = $matches[1];
-				$comment->description = $data->description;
-				$comment->save();
-				
-				return elgg_entity_resource($comment);
-			},
-		),
-		'/entities/(\d+)/menus/([a-z_-]+)' => function($matches) {
-			return elgg_menu_resource($matches[2], array(
-				'entity' => get_entity($matches[1]),
-			));
-		},
-		'/menus/([a-z_-]+)' => function($matches) {
-			return elgg_menu_resource($matches[1]);
-		},
+		'/entities/(\d+)' => \Elgg\Api\EntityResource::class,
+		'/entities/(\d+)/comments' => \Elgg\Api\Entities\CommentsResource::class,
+		'/entities/(\d+)/menus/([a-z_-]+)' => \Elgg\Api\Entities\MenuResource::class,
+		'/menus/([a-z_-]+)' => \Elgg\Api\MenuResource::class,
+		'/users/me' => \Elgg\Api\Users\MeResource::class,
 	);
 	
 	$url = "/" . implode($segments, '/');
@@ -130,18 +78,19 @@ function elgg_api_page_handler($segments, $name) {
 		
 		if (preg_match($pattern, $url, $matches)) {
 			
-			if (is_callable($callbacks)) {
-				$result = $callbacks($matches);
-			} elseif (is_callable($callbacks[$method])) {
-				$result = $callbacks[$method]($matches);
-			} else {
+			$resource = new $callbacks($matches);
+			
+			if (!is_callable(array($resource, $method))) {
 				return null;
 			}
-			
+
+			$result = $resource->$method();
+
 			if (is_array($result)) {
 				header("Content-Type: application/json");
 				echo json_encode($result);
 			} else {
+				header("Content-Type: text/html");
 				echo $result;
 			}
 			
