@@ -1,6 +1,6 @@
 // <script>
 define(function(require) {
-    var template = require('text!./template.html');
+    var template = require('text!./elggMenu.html');
     
 	/**
 	 * @ngInject

@@ -4,8 +4,8 @@ define(function(require) {
 		return {
 			restrict: 'A',
 			replace: true,
-			template: require("text!./template.html"),
-			controller: require('./Controller'),
+			template: require("text!./elggRiverComment.html"),
+			controller: require('./ElggRiverCommentCtrl'),
 			scope: {
 				comment: '='
 			}
