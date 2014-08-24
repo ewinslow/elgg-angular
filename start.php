@@ -23,6 +23,11 @@ function elgg_menu_resource($menu, array $vars = array()) {
 	return elgg_view_menu($menu, $vars);
 }
 
+function unix_to_atom($timestamp) {
+	$datetime = new DateTime();
+	return $datetime->setTimestamp($timestamp)->format(DateTime::ATOM);
+}
+
 function elgg_entity_resource(ElggEntity $entity = null) {
 	if (!$entity) {
 		return null;
@@ -41,6 +46,7 @@ function elgg_entity_resource(ElggEntity $entity = null) {
 			'large' => $entity->getIconUrl('large'),
 		),
 		'name' => $entity->getDisplayName(),
+		'time_created' => unix_to_atom($entity->time_created),
 		'url' => $entity->getUrl(),
 	);
 }

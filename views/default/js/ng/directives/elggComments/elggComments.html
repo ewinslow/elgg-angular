@@ -16,7 +16,7 @@
 					<a href="{{comment.owner.url}}">
 						{{comment.owner.name}}
 					</a>
-					<time>{{comment.time_created}}</time>
+					<time elgg-friendly-time datetime="{{comment.time_created}}"></time>
 
 					<div class="elgg-output elgg-inner" data-role="comment-text"
 					     ng-bind-html="comment.description">

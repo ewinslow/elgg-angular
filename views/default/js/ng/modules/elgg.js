@@ -12,6 +12,7 @@ define(function(require) {
 	])
 		.directive('elggComments', require('../directives/elggComments/elggComments'))
 		.directive('elggFocusModel', require('../directives/elggFocusModel/elggFocusModel'))
+		.directive('elggFriendlyTime', require('../directives/elggFriendlyTime/elggFriendlyTime'))
 		.directive('elggMenu', require('../directives/elggMenu/elggMenu'))
 		.directive('elggResource', require('../directives/elggResource/elggResource'))
 		.directive('elggResponses', require('../directives/elggResponses/elggResponses'))
