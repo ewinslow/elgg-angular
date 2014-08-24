@@ -13,7 +13,7 @@ define(function(require) {
             	$attrs.$observe('src', function updateResource(src) {
             		aliasExpression.assign(
             		    $scope, elggResourceFactory.createAndGet(
-            		        elgg.normalize_url(src)));
+            		        elgg.normalize_url('/elgg-api' + src)));
             	});
             }
         };

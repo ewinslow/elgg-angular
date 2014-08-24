@@ -1,4 +1,4 @@
-<elgg-resource src="{{'/elgg-api/entities/' + entity + '/comments'}}"
+<elgg-resource src="{{'/entities/' + entity + '/comments'}}"
                as="comments">
 	<h3>Comments</h3>
 	
@@ -30,7 +30,7 @@
 	
 	
 	<form class="elgg-image-block" ng-submit="comments.post(newComment);">
-		<elgg-resource src="/elgg-api/users/me" as="me" class="elgg-image">
+		<elgg-resource src="/users/me" as="me" class="elgg-image">
 			<img ng-src="{{me.data.icons.small}}">
 		</elgg-resource>
 		<div class="elgg-body">

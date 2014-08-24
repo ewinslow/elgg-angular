@@ -1,8 +1,8 @@
 <elgg-resource ng-if="entity"
-               src="{{'/elgg-api/entities/' + entity + '/menus/' + type}}"
+               src="{{'/entities/' + entity + '/menus/' + type}}"
                ng-bind-html="$resource.data">
 </elgg-resource>
 <elgg-resource ng-if="!entity"
-               src="{{'/elgg-api/menus/' + type}}"
+               src="{{'/menus/' + type}}"
                ng-bind-html="$resource.data">
 </elgg-resource>
