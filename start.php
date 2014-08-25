@@ -57,11 +57,11 @@ function elgg_entity_resource(ElggEntity $entity = null, $recursive = true) {
 
 function elgg_api_page_handler($segments, $name) {
 	$resources = array(
-		'/entities/(\d+)' => \Elgg\Api\EntityResource::class,
-		'/entities/(\d+)/comments' => \Elgg\Api\Entities\CommentsResource::class,
-		'/entities/(\d+)/menus/([a-z_-]+)' => \Elgg\Api\Entities\MenuResource::class,
-		'/menus/([a-z_-]+)' => \Elgg\Api\MenuResource::class,
-		'/users/me' => \Elgg\Api\Users\MeResource::class,
+		'/entities/(\d+)' => '\Elgg\Api\EntityResource',
+		'/entities/(\d+)/comments' => '\Elgg\Api\Entities\CommentsResource',
+		'/entities/(\d+)/menus/([a-z_-]+)' => '\Elgg\Api\Entities\MenuResource',
+		'/menus/([a-z_-]+)' => '\Elgg\Api\MenuResource',
+		'/users/me' => '\Elgg\Api\Users\MeResource',
 	);
 	
 	$url = "/" . implode($segments, '/');
