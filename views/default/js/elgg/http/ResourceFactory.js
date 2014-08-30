@@ -6,7 +6,7 @@ define(function(require) {
 	}
 	
 	ResourceFactory.prototype = {
-		createAndGet: function(src) {
+		create: function(src) {
 			var resource = new Resource(src, this.$http_);
 			resource.get();
 			return resource;
