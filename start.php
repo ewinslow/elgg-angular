@@ -49,7 +49,7 @@ function elgg_entity_resource(ElggEntity $entity = null, $recursive = true) {
 		'name' => $entity->getDisplayName(),
 		'time_created' => unix_to_atom($entity->time_created),
 		'time_updated' => unix_to_atom($entity->time_updated),
-		'url' => $entity->getUrl(),
+		'url' => elgg_normalize_url("/elgg-api/entities/$entity->guid"),
 	);
 }
 
