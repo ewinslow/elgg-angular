@@ -33,6 +33,8 @@ function elgg_entity_resource(ElggEntity $entity = null, $recursive = true) {
 		return null;
 	}
 	
+	$url = elgg_normalize_url("/elgg-api/entities/$entity->guid");
+	
 	return array(
 		'description' => $entity->description,
 		'guid' => $entity->guid,
@@ -49,7 +51,7 @@ function elgg_entity_resource(ElggEntity $entity = null, $recursive = true) {
 		'name' => $entity->getDisplayName(),
 		'time_created' => unix_to_atom($entity->time_created),
 		'time_updated' => unix_to_atom($entity->time_updated),
-		'url' => elgg_normalize_url("/elgg-api/entities/$entity->guid"),
+		'url' => $url,
 		'comments' => array(
 			'url' => "$url/comments",
 		),
@@ -108,7 +110,10 @@ function elgg_api_page_handler($segments, $name) {
 function elgg_angular_comments($type, $subtype, $returnval, $params) {
 	$entity = $params['entity'];
 	
-	return "<elgg-comments entity='$entity->guid'></elgg-comments>";
+	$entityApiUrl = elgg_normalize_url("/elgg-api/entities/$entity->guid");
+	return "<elgg-resource src='$entityApiUrl' as='entity'>" .
+		"<elgg-comments entity='entity.data'></elgg-comments>" .
+		"</elgg-resource>";
 }
 
 elgg_register_event_handler('init', 'system', 'elgg_angular_init');

@@ -6,7 +6,7 @@ define(function(require) {
         return {
             restrict: 'E',
             scope: {
-                'entity': '@',
+                'entity': '=',
             },
             template: require('text!./elggComments.html'),
         };

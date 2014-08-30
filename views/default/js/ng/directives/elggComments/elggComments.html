@@ -1,5 +1,4 @@
-<elgg-resource src="{{'/entities/' + entity + '/comments'}}"
-               as="comments">
+<elgg-resource src="{{entity.comments.url}}" as="comments">
 	<ol>
 		<li ng-repeat="comment in comments.data.items" class="mbn">
 			<a name="comment-{{comment.guid}}"></a>
