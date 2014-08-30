@@ -22,6 +22,14 @@ define(function(require) {
 		set: function(key, value) {
 			this.items_[key] = value;
 		},
+		
+		get values() {
+			var items = this.items_;
+			
+			return Object.keys(items).map(function(key) {
+				return items[key];
+			});
+		},
 	};
 	
 	
