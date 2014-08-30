@@ -1,15 +1,16 @@
 /**
- * LazyMap always returns a value when get() is called.
+ * FactoryMap always returns a value when get() is called.
  * 
- * The default value is whatever is returned by the factory function.
+ * If nothing has already be set() for that key,
+ * the value returned is whatever is returned when the factory function is called.
  */
 define(function(require) {
-	function LazyMap(factory) {
+	function FactoryMap(factory) {
 		this.factory_ = factory;
 		this.items_ = {};
 	}
 	
-	LazyMap.prototype = {
+	FactoryMap.prototype = {
 		get: function(key) {
 			if (!this.items_[key]) {
 				this.set(key, this.factory_());
@@ -24,5 +25,5 @@ define(function(require) {
 	};
 	
 	
-	return LazyMap;
+	return FactoryMap;
 });
