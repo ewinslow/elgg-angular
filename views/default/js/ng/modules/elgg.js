@@ -4,6 +4,8 @@ define(function(require) {
 	var ngSanitize = require('./ngSanitize');
 	var ngResource = require('./ngResource');
 	var moment = require('./moment');
+	var FactoryMap = require('elgg/structs/FactoryMap');
+	var Menu = require('elgg/menus/Menu');
 	
 	return angular.module('elgg', [
 		ngSanitize.name,
@@ -23,6 +25,9 @@ define(function(require) {
 		.directive('whenScrolled', require('../directives/whenScrolled/whenScrolled'))
 		.service('elggResourceFactory', require('elgg/http/ResourceFactory'))
 		.value('elgg', elgg)
+		.value('elggMenus', new FactoryMap(function() {
+			return new Menu();
+		}))
 		.value('elggSession', elgg.session)
 		.value('elggUser', elgg.session.user)
 });
