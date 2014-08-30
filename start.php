@@ -65,8 +65,6 @@ function elgg_api_page_handler($segments, $name) {
 	$resources = array(
 		'/entities/(\d+)' => '\Elgg\Api\EntityResource',
 		'/entities/(\d+)/comments' => '\Elgg\Api\Entities\CommentsResource',
-		'/entities/(\d+)/menus/([a-z_-]+)' => '\Elgg\Api\Entities\MenuResource',
-		'/menus/([a-z_-]+)' => '\Elgg\Api\MenuResource',
 		'/users/me' => '\Elgg\Api\Users\MeResource',
 	);
 	

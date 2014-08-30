@@ -1,0 +1,8 @@
+<elgg-resource src="{{entity}}" as='$resource'>
+	Hello world! I'm a menu!
+	<ul ng-repeat="section in ctrl.getSections()">
+		<elgg-menu-item ng-repeat="item in section.getItems()"
+		                item="item" resource="$resource">
+		</elgg-menu-item>
+	</ul>
+</elgg-resource>
