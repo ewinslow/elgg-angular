@@ -50,6 +50,12 @@ function elgg_entity_resource(ElggEntity $entity = null, $recursive = true) {
 		'time_created' => unix_to_atom($entity->time_created),
 		'time_updated' => unix_to_atom($entity->time_updated),
 		'url' => elgg_normalize_url("/elgg-api/entities/$entity->guid"),
+		'comments' => array(
+			'url' => "$url/comments",
+		),
+		'likers' => array(
+			'url' => "$url/likers",
+		),
 	);
 }
 
