@@ -1,8 +1,8 @@
-define(function(require) {
+define(function() {
 	/**
 	 * @ngInject
 	 */
-	return function(elggResourceFactory, $parse, elgg) {
+	return function(elggResourceFactory, $parse) {
         return {
             restrict: 'E',
             scope: true,
@@ -10,9 +10,7 @@ define(function(require) {
             	var aliasExpression = $parse($attrs['as'] || '$resource');
             	
             	$attrs.$observe('src', function updateResource(src) {
-            		aliasExpression.assign(
-            		    $scope, elggResourceFactory.createAndGet(
-            		        elgg.normalize_url('/elgg-api' + src)));
+            		aliasExpression.assign($scope, elggResourceFactory.create(src));
             	});
             }
         };
