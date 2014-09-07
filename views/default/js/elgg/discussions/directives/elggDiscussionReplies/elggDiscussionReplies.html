@@ -1,0 +1,39 @@
+<elgg-resource src="{{topic.replies.url}}" as="replies">
+	<ol>
+		<li ng-repeat="reply in replies.content.items" class="mbn">
+			<a name="reply-{{reply.guid}}"></a>
+			<elgg-menu type="entity" params="{entity: reply}">
+			</elgg-menu>
+			<div class="elgg-image-block">
+				<div class="elgg-image">
+					<img ng-src="{{reply.owner.icons.small}}">
+				</div>
+				<div class="elgg-body">
+					<a href="{{reply.owner.url}}">
+						{{reply.owner.name}}
+					</a>
+					<time elgg-friendly-time datetime="{{reply.time_created}}"></time>
+
+					<div class="elgg-output elgg-inner mvn" data-role="reply-text"
+					     ng-bind-html="reply.description">
+					</div>
+				</div>
+			</div>
+		</li>
+	</ol>
+	
+	<a href="/login" ng-if="!ctrl.me.data && !ctrl.me.isGetting()">
+		Log in to post replies.
+	</a>
+	<form class="elgg-image-block" ng-submit="replies.post(newReply);"
+	      ng-if="ctrl.me.data">
+		<img ng-src="{{ctrl.me.data.icons.small}}" class="elgg-image">
+		<div class="elgg-body">
+			<textarea ng-model="newReply.description"
+			          placeholder="Leave a reply...">
+				
+			</textarea>
+			<button>Reply</button>
+		</div>
+	</form>
+</elgg-resource>
