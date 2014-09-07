@@ -8,7 +8,6 @@ define(function(require) {
 		elggHttp.name
 	])
 		.directive('elggMenu', require('./directives/elggMenu/elggMenu'))
-		.directive('elggMenuItem', require('./directives/elggMenuItem/elggMenuItem'))
 		.value('elggMenus', new FactoryMap(function() {
 			return new Menu();
 		}));

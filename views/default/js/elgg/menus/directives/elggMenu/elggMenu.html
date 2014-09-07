@@ -1,8 +1,13 @@
-<elgg-resource src="{{entity}}" as='$resource'>
-	Hello world! I'm a menu!
-	<ul ng-repeat="section in ctrl.getSections()">
-		<elgg-menu-item ng-repeat="item in section.getItems()"
-		                item="item" resource="$resource">
-		</elgg-menu-item>
-	</ul>
-</elgg-resource>
+<ul ng-repeat="(sectionName, section) in ctrl.getSections(type)"
+    class="elgg-menu-{{type}} elgg-menu-{{type}}-{{sectionName}}">
+    
+	<li ng-repeat="(itemName, item) in section.getItems()"
+	    class="elgg-menu-item elgg-menu-item-{{itemName}}">
+	    
+		<a href="{{ctrl.materialize(item.href, params)}}">
+			{{ctrl.materialize(item.label, params)}}
+		</a>
+		
+	</li>
+
+</ul>

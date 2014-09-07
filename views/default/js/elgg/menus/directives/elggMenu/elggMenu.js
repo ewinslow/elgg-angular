@@ -9,7 +9,7 @@ define(function(require) {
 			restrict: 'E',
 			scope: {
 				'name': '@',
-				'resource': '@',
+				'params': '=',
 			},
 			templateUrl: require.toUrl('./elggMenu.html'),
 		};

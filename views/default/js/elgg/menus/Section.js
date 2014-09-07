@@ -4,8 +4,8 @@ define(function(require) {
 	}
 	
 	Section.prototype = {
-		get items() {
-			return this.menu_.items.values.filter(function(item) {
+		getItems: function(params) {
+			return this.menu_.getItems(params).filter(function(item) {
 				return item.section == this;
 			}.bind(this));
 		}
