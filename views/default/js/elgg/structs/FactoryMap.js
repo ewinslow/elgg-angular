@@ -23,12 +23,15 @@ define(function(require) {
 			this.items_[key] = value;
 		},
 		
-		get values() {
+		toObject: function(callback) {
+			var obj = {};
 			var items = this.items_;
 			
-			return Object.keys(items).map(function(key) {
-				return items[key];
+			Object.keys(items).forEach(function(key) {
+				obj[key] = items[key];
 			});
+			
+			return obj;
 		},
 	};
 	

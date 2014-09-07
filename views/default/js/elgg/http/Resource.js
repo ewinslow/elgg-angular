@@ -8,8 +8,13 @@ define(function() {
 	}
 	
 	Resource.prototype = {
+		get content() {
+			return this.content_;
+		},
+		
+		// FOR BC ONLY. USE .content instead!
 		get data() {
-			return this.data_;
+			return this.content_;
 		},
 		
 		get error() {
@@ -21,7 +26,7 @@ define(function() {
 			this.error_ = null;
 			
 			return this.$http_.get(this.src_).then(function handleGetSuccess(response) {
-				this.data_ = response.data;
+				this.content_ = response.data;
 				this.isGetting_ = false;
 			}.bind(this), function handleGetError(error) {
 				this.error_ = error || true;
@@ -36,8 +41,8 @@ define(function() {
 		post: function(data) {
 			this.isPosting_ = true;
 			
-			this.data.items.push(data);
-			this.data.count++;
+			this.content.items.push(data);
+			this.content.count++;
 			
 			return this.$http_.post(this.src_, data).then(function handlePostSuccess(response) {
 				this.isPosting_ = false;

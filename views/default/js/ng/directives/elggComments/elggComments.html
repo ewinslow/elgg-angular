@@ -2,10 +2,7 @@
 	<ol>
 		<li ng-repeat="comment in comments.data.items" class="mbn">
 			<a name="comment-{{comment.guid}}"></a>
-			<elgg-menu type="entity"
-			           entity="{{comment.guid}}"
-			           handler="comment"
-			           sort="priority">
+			<elgg-menu type="entity" params="{entity: comment}">
 			</elgg-menu>
 			<div class="elgg-image-block">
 				<div class="elgg-image">
@@ -26,20 +23,18 @@
 	</ol>
 	
 	
-	<elgg-resource src="/users/me" as="me">
-		<a href="/login" ng-if="!me.data && !me.isGetting()">
-			Log in to post comments.
-		</a>
-		<form class="elgg-image-block" ng-submit="comments.post(newComment);"
-		      ng-if="me.data">
-			<img ng-src="{{me.data.icons.small}}" class="elgg-image">
-			<div class="elgg-body">
-				<textarea ng-model="newComment.description"
-				          placeholder="Leave a comment...">
-					
-				</textarea>
-				<button>Comment</button>
-			</div>
-		</form>
-	</elgg-resource>
+	<a href="/login" ng-if="!ctrl.me.content && !ctrl.me.isGetting()">
+		Log in to post comments.
+	</a>
+	<form class="elgg-image-block" ng-submit="comments.post(newComment);"
+	      ng-if="ctrl.me.content">
+		<img ng-src="{{ctrl.me.content.icons.small}}" class="elgg-image">
+		<div class="elgg-body">
+			<textarea ng-model="newComment.description"
+			          placeholder="Leave a comment...">
+				
+			</textarea>
+			<button>Comment</button>
+		</div>
+	</form>
 </elgg-resource>
