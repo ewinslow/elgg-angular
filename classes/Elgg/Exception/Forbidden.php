@@ -1,4 +1,4 @@
 <?php
 namespace Elgg\Exception;
 
-class Forbidden extends Exception {}
+class Forbidden extends BadRequest {}
