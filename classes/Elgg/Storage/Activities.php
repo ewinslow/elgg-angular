@@ -1,5 +1,4 @@
 <?php
-
 namespace Elgg\Storage;
 
 class Activities {

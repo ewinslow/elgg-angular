@@ -1,5 +1,4 @@
 <?php
-
 namespace Elgg\Storage;
 
 use Elgg\Exception;
@@ -16,25 +15,30 @@ class Entities {
 		return $entity;
 	}
 	
+	public function find(array $options) {
+		return new EntitiesQuery($options);
+	}
+	
 	public function create(array $attributes) {
+
 		$type = $attributes['type'];
 		unset($attributes['type']);
 		
 		switch ($type) {
 			case 'object':
-				$entity = new ElggObject();
+				$entity = new \ElggObject();
 				break;
 			case 'user':
-				$entity = new ElggUser();
+				$entity = new \ElggUser();
 				break;
 			case 'group':
-				$entity = new ElggGroup();
+				$entity = new \ElggGroup();
 				break;
 			case 'site':
-				$entity = new ElggSite();
+				$entity = new \ElggSite();
 				break;
 			default:
-				throw new Exception("'$type' is not a valid ElggEntity type");
+				throw new Exception\BadRequest("'$type' is not a valid ElggEntity type");
 		}		
 		
 		foreach ($attributes as $property => $value) {
