@@ -143,12 +143,7 @@ function elgg_api_page_handler($segments, $name) {
 }
 
 function elgg_angular_comments($type, $subtype, $returnval, $params) {
-	$entity = $params['entity'];
-	
-	$entityApiUrl = elgg_normalize_url("/elgg-api/entities/$entity->guid");
-	return "<elgg-resource src='$entityApiUrl' as='entity'>" .
-		"<elgg-comments entity='entity.content'></elgg-comments>" .
-		"</elgg-resource>";
+	return elgg_view('page/elements/comments', $params);
 }
 
 elgg_register_event_handler('init', 'system', 'elgg_angular_init');
