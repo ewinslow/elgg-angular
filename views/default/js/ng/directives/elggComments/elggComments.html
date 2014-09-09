@@ -1,6 +1,6 @@
-<elgg-resource src="{{entity.comments.url}}" as="comments">
+<elgg-resource src="{{entity.comments.url}}" as="ctrl.comments">
 	<ol>
-		<li ng-repeat="comment in comments.content.items" class="mbn">
+		<li ng-repeat="comment in ctrl.comments.content.items" class="mbn">
 			<a name="comment-{{comment.guid}}"></a>
 			<elgg-menu type="entity" params="{entity: comment}">
 			</elgg-menu>
@@ -26,11 +26,11 @@
 	<a href="/login" ng-if="!ctrl.me.content && !ctrl.me.isGetting()">
 		Log in to post comments.
 	</a>
-	<form class="elgg-image-block" ng-submit="comments.post(newComment);"
+	<form class="elgg-image-block" ng-submit="ctrl.submit();"
 	      ng-if="ctrl.me.content">
 		<img ng-src="{{ctrl.me.content.icons.small}}" class="elgg-image">
 		<div class="elgg-body">
-			<textarea ng-model="newComment.description"
+			<textarea ng-model="ctrl.newComment.description"
 			          placeholder="Leave a comment...">
 				
 			</textarea>

@@ -1,6 +1,6 @@
-<elgg-resource src="{{topic.replies.url}}" as="replies">
+<elgg-resource src="{{topic.replies.url}}" as="ctrl.replies">
 	<ol>
-		<li ng-repeat="reply in replies.content.items" class="mbn">
+		<li ng-repeat="reply in ctrl.replies.content.items" class="mbn">
 			<a name="reply-{{reply.guid}}"></a>
 			<elgg-menu type="entity" params="{entity: reply}">
 			</elgg-menu>
@@ -25,11 +25,11 @@
 	<a href="/login" ng-if="!ctrl.me.content && !ctrl.me.isGetting()">
 		Log in to post replies.
 	</a>
-	<form class="elgg-image-block" ng-submit="replies.post(newReply);"
+	<form class="elgg-image-block" ng-submit="ctrl.submit();"
 	      ng-if="ctrl.me.content">
 		<img ng-src="{{ctrl.me.content.icons.small}}" class="elgg-image">
 		<div class="elgg-body">
-			<textarea ng-model="newReply.description"
+			<textarea ng-model="ctrl.newReply.description"
 			          placeholder="Leave a reply...">
 				
 			</textarea>

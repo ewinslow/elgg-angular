@@ -9,6 +9,15 @@ define(function(require) {
                 var url = elgg.normalize_url('/elgg-api/me');
                 
                 this.me = elggResourceFactory.create(url);
+                
+                // Initialized by template code -- too magical?
+                this.replies = null;
+                
+                this.submit = function() {
+                    this.replies.post(this.newReply);
+                    
+                    this.newReply = {};
+                };
             },
             controllerAs: 'ctrl',
             scope: {
