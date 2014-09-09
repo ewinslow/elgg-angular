@@ -153,7 +153,7 @@ item.section = menu.sections.get('default'); // equivalent
 The template option allows you to completely take over the rendering of the menu item. You can use this to insert a custom directive.
 
 ```js
-item.template = '<elgg-likes-button entity="{{entity.data.guid}}"></elgg-likes-button>';
+item.template = '<elgg-likes-button entity="{{entity.content.guid}}"></elgg-likes-button>';
 item.template = require('text!elgg/menus/entity/likes/template.html');
 ```
 

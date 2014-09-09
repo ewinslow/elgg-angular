@@ -145,7 +145,7 @@ function elgg_angular_comments($type, $subtype, $returnval, $params) {
 	
 	$entityApiUrl = elgg_normalize_url("/elgg-api/entities/$entity->guid");
 	return "<elgg-resource src='$entityApiUrl' as='entity'>" .
-		"<elgg-comments entity='entity.data'></elgg-comments>" .
+		"<elgg-comments entity='entity.content'></elgg-comments>" .
 		"</elgg-resource>";
 }
 

@@ -1,6 +1,6 @@
 <elgg-resource src="{{entity.comments.url}}" as="comments">
 	<ol>
-		<li ng-repeat="comment in comments.data.items" class="mbn">
+		<li ng-repeat="comment in comments.content.items" class="mbn">
 			<a name="comment-{{comment.guid}}"></a>
 			<elgg-menu type="entity" params="{entity: comment}">
 			</elgg-menu>

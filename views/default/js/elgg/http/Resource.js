@@ -12,11 +12,6 @@ define(function() {
 			return this.content_;
 		},
 		
-		// FOR BC ONLY. USE .content instead!
-		get data() {
-			return this.content_;
-		},
-		
 		get error() {
 			return this.error_;	
 		},

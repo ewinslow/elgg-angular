@@ -22,12 +22,12 @@
 		</li>
 	</ol>
 	
-	<a href="/login" ng-if="!ctrl.me.data && !ctrl.me.isGetting()">
+	<a href="/login" ng-if="!ctrl.me.content && !ctrl.me.isGetting()">
 		Log in to post replies.
 	</a>
 	<form class="elgg-image-block" ng-submit="replies.post(newReply);"
-	      ng-if="ctrl.me.data">
-		<img ng-src="{{ctrl.me.data.icons.small}}" class="elgg-image">
+	      ng-if="ctrl.me.content">
+		<img ng-src="{{ctrl.me.content.icons.small}}" class="elgg-image">
 		<div class="elgg-body">
 			<textarea ng-model="newReply.description"
 			          placeholder="Leave a reply...">
