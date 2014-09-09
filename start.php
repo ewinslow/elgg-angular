@@ -124,10 +124,12 @@ function elgg_api_page_handler($segments, $name) {
 				ksort($result);
 				echo json_encode($result);
 			} catch (\Elgg\Exception\BadRequest $e) {
+				header('Status: 400 Bad Request', true, 400);
 				echo json_encode(array(
 					'status' => '4xx',
 				));
 			} catch (\Exception $e) {
+				header('Status: 500 Internal Server Error', true, 500);
 				echo json_encode(array(
 					'status' => '5xx',
 				));
