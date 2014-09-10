@@ -1,5 +1,5 @@
 <?php
-	$entity = $params['entity'];
+	$entity = $vars['entity'];
 	
 	$entityApiUrl = elgg_normalize_url("/elgg-api/entities/$entity->guid");
 ?>

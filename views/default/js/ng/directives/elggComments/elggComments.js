@@ -5,7 +5,7 @@ define(function(require) {
 	return function() {
         return {
             restrict: 'E',
-            controller: function($scope, elgg, elggResourceFactory) {
+            controller: function(elgg, elggResourceFactory) {
                 var url = elgg.normalize_url('/elgg-api/me');
                 
                 this.me = elggResourceFactory.create(url);
@@ -13,8 +13,13 @@ define(function(require) {
                 // Initialized by template code -- too magical?
                 this.comments = null;
                 
+                this.newComment = {};
+                
                 this.submit = function() {
-                    this.comments.post(this.newReply);
+                    this.comments.post({
+                        owner: this.me.content,
+                        description: this.newComment.description
+                    });
                     
                     this.newComment = {};
                 };

@@ -13,8 +13,13 @@ define(function(require) {
                 // Initialized by template code -- too magical?
                 this.replies = null;
                 
+                this.newReply = {};
+                
                 this.submit = function() {
-                    this.replies.post(this.newReply);
+                    this.replies.post({
+                        owner: this.me.content,
+                        description: this.newReply.description
+                    });
                     
                     this.newReply = {};
                 };
