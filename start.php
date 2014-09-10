@@ -96,11 +96,6 @@ function elgg_api_page_handler($segments, $name) {
 	$url = "/" . implode($segments, '/');
 	$method = strtolower($_SERVER['REQUEST_METHOD']);
 	
-	
-	if ($method != 'get') {
-		// TODO(evan): Turn on action_gatekeeper();
-	}
-	
 	foreach ($resources as $route => $controller) {
 		$pattern = "#^$route$#";
 
@@ -118,6 +113,11 @@ function elgg_api_page_handler($segments, $name) {
 			try {
 				if (!is_callable(array($resource, $method))) {
 					throw new \Elgg\Exception\MethodNotAllowed();
+				}
+				
+				if (($method == 'post' || $method == 'put' || $method == 'delete') &&
+					!validate_action_token(false, $input->__elgg_token, $input->__elgg_ts)) {
+					throw new \Elgg\Exception\Forbidden();
 				}
 
 				$result = $resource->$method($input);
