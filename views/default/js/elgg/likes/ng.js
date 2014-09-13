@@ -8,11 +8,12 @@ define(function(require) {
 	function runLikes(elggMenus) {
 		var likesItem = elggMenus.get('entity').items.get('likes');
 		
-		likesItem.label = "You like this";
-		likesItem.href = "https://google.com";
+		likesItem.templateUrl = require.toUrl('./menus/entity/likes.html');
 	}
 
 	return angular.module('elgg/likes', [
 		elgg.name
-	]).run(runLikes);
+	])
+		.directive('elggLikesButton', require('elgg/likes/directives/elggLikesButton/elggLikesButton'))
+		.run(runLikes);
 });

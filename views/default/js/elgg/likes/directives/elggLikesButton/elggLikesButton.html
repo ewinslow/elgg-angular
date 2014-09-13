@@ -1,0 +1,12 @@
+<span>
+	<button ng-click="ctrl.like()"
+	        class="elgg-button elgg-button-action"
+	        ng-if="!ctrl.isLiked()">
+		Like
+	</span>
+	<button ng-click="ctrl.unlike()"
+	        class="elgg-button elgg-button-submit"
+	        ng-if="ctrl.isLiked()">
+		Unlike
+	</span>
+</button>

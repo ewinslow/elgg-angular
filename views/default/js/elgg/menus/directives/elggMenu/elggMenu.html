@@ -1,12 +1,8 @@
-<ul class="elgg-menu-{{type}} elgg-menu-{{type}}">
+<ul class="elgg-menu elgg-menu-{{type}}">
     
-	<li ng-repeat="item in ctrl.getItems()"
-	    class="elgg-menu-item elgg-menu-item-{{item.name}}">
-	    
-		<a href="{{item.href}}" ng-click="item.action()">
-			{{item.label}}
-		</a>
-		
+	<li class="elgg-menu-item elgg-menu-item-{{item.name}}"
+	    ng-repeat="item in ctrl.getItems()"
+	    ng-include="item.templateUrl">
 	</li>
 
 </ul>

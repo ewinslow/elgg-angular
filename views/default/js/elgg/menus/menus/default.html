@@ -1,0 +1,6 @@
+<a ng-if="item.href" href="{{item.href}}">
+	{{item.label}}
+</a>
+<button ng-if="item.action" ng-click="item.action(params)">
+	{{item.label}}
+</button>

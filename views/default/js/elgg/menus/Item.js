@@ -1,4 +1,4 @@
-define(function() {
+define(function(require) {
 	
 	function Item(menu) {
 		this.menu_ = menu;
@@ -23,6 +23,7 @@ define(function() {
 				href: materialize(this.href, params),
 				icon: materialize(this.icon, params),
 				label: materialize(this.label, params),
+				templateUrl: materialize(this.templateUrl, params) || require.toUrl('./menus/default.html'),
 				name: name,
 			};
 		},
