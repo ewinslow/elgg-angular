@@ -20,17 +20,11 @@ define(function(require) {
 		 * 
 		 * @return Array.<Object>
 		 */
-		getItems: function(params) {
-			var materialize = Item.materialize;
+		materialize: function(params) {
+			var items = this.items_.toObject();
 			
-			return this.items_.map(function(item, name) {
-				return {
-					action: item.action,
-					href: materialize(item.href, params),
-					icon: materialize(item.icon, params),
-					label: materialize(item.label, params),
-					name: name,
-				};
+			return Object.keys(items).map(function(name) {
+				return items[name].materialize(name, params);
 			});
 		},
 		

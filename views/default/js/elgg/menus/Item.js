@@ -7,8 +7,26 @@ define(function() {
 		this.label = '';
 		this.section = 'default';
 	}
+	
+	function materialize(value, params) {
+		if (typeof value != 'function') {
+			return value;
+		}
+		
+		return value(params);
+	}
 
 	Item.prototype = {
+		materialize: function(name, params) {
+			return {
+				action: this.action,
+				href: materialize(this.href, params),
+				icon: materialize(this.icon, params),
+				label: materialize(this.label, params),
+				name: name,
+			};
+		},
+		
 		get section() {
 			return this.section_;
 		},

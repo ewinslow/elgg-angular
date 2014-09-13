@@ -4,15 +4,22 @@ define(function() {
 	 */
 	function ElggMenuCtrl(elggMenus) {
 		this.menus_ = elggMenus;
+		
+		this.items_ = [];
 	}
 	
 	ElggMenuCtrl.prototype = {
-		getSections: function(type) {
-			return this.menus_.get(type).sections.toObject();
+		getItems: function() {
+			return this.items_;
 		},
 		
-		materialize: function(value, params) {
-			return typeof value == 'function' ? value(params) : value;
+		/** @ngInject */
+		init: function(type, params) {
+			this.items_ = this.menus_.get(type).materialize(params);
+		},
+		
+		$link: function($scope) {
+			this.init($scope.type, $scope.params);
 		},
 	};
 	

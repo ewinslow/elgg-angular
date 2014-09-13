@@ -7,9 +7,13 @@ define(function(require) {
 			controller: require('./ElggMenuCtrl'),
 			controllerAs: 'ctrl',
 			restrict: 'E',
+			require: 'elggMenu',
 			scope: {
-				'name': '@',
+				'type': '@',
 				'params': '=',
+			},
+			link: function($scope, $element, $attrs, ctrl) {
+				ctrl.$link($scope);
 			},
 			templateUrl: require.toUrl('./elggMenu.html'),
 		};

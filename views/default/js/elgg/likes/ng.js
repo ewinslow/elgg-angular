@@ -5,7 +5,7 @@ define(function(require) {
 	/**
 	 * @ngInject
 	 */
-	function run(elggMenus) {
+	function runLikes(elggMenus) {
 		var likesItem = elggMenus.get('entity').items.get('likes');
 		
 		likesItem.label = "You like this";
@@ -14,5 +14,5 @@ define(function(require) {
 
 	return angular.module('elgg/likes', [
 		elgg.name
-	]).run(run);
+	]).run(runLikes);
 });

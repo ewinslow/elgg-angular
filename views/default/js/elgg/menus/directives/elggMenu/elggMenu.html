@@ -1,11 +1,10 @@
-<ul ng-repeat="(sectionName, section) in ctrl.getSections(type)"
-    class="elgg-menu-{{type}} elgg-menu-{{type}}-{{sectionName}}">
+<ul class="elgg-menu-{{type}} elgg-menu-{{type}}">
     
-	<li ng-repeat="(itemName, item) in section.getItems()"
-	    class="elgg-menu-item elgg-menu-item-{{itemName}}">
+	<li ng-repeat="item in ctrl.getItems()"
+	    class="elgg-menu-item elgg-menu-item-{{item.name}}">
 	    
-		<a href="{{ctrl.materialize(item.href, params)}}">
-			{{ctrl.materialize(item.label, params)}}
+		<a href="{{item.href}}" ng-click="item.action()">
+			{{item.label}}
 		</a>
 		
 	</li>
