@@ -24,4 +24,11 @@ but this will likely become customizable soon as we will want to support:
   * Plugins defining their own modules to be loaded onto the page
   * Only loading the minimum set of modules needed for any given page
 
+Contributing
+------------
+
+
+Run tests: `npm test`
+Run karma: `npm start`
+
 

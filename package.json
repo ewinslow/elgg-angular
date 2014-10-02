@@ -1,0 +1,31 @@
+{
+  "name": "elgg-angular",
+  "version": "0.0.0",
+  "description": "Integration of AngularJS into Elgg",
+  "main": "index.js",
+  "scripts": {
+    "start": "karma start karma.conf.js",
+    "test": "karma start karma.conf.js --single-run"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/ewinslow/elgg-angular.git"
+  },
+  "keywords": [
+    "elgg",
+    "angular"
+  ],
+  "author": "Evan Winslow",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ewinslow/elgg-angular/issues"
+  },
+  "homepage": "https://github.com/ewinslow/elgg-angular",
+  "devDependencies": {
+    "karma": "^0.12.24",
+    "karma-jasmine": "^0.1.5",
+    "karma-phantomjs-launcher": "^0.1.4",
+    "requirejs": "^2.1.15",
+    "karma-requirejs": "^0.2.2"
+  }
+}

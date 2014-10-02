@@ -3,15 +3,15 @@ define(function(require) {
     /**
      * This assumes that "props" looks like so (like button just an example):
      * {
-     *   "is_pressed": false, // initial state
+     *   "pressed": false, // initial state
      *   "href": "...",
-     *   "pressed": {
+     *   "press": {
      *     // Metadata overrides for when the button is in the pressed state
      *     "method": "delete",
      *     "label": "Unlike",
      *     "description": "You, John, and 13 others like this",
      *   },
-     *   "unpressed": {
+     *   "unpress": {
      *     // Metadata overrides for when the button is in the unpressed state
      *     "method": "put",
      *     "label": "Like",
@@ -35,7 +35,7 @@ define(function(require) {
         HREF: 'href',
         LABEL: 'label',
         METHOD: 'method',
-        PARAMS: 'params',
+        DATA: 'data',
     };
     
     /**
@@ -46,12 +46,16 @@ define(function(require) {
     Ctrl.prototype.click = function() {
     	var method = this.getProp_(Prop.METHOD) || 'get';
     	var url = this.getProp_(Prop.HREF);
-    	var params = this.getProp_(Prop.PARAMS) || {};
+    	var data = this.getProp_(Prop.DATA);
     	
     	// Optimistically assume the action will succeed
-        this.props_[Prop.IS_PRESSED] = (this.getAction_() == Action.PRESS);
+        this.props_['pressed'] = (this.getAction_() == Action.PRESS);
         
-    	return this.$http_[method](url, params);
+    	return this.$http_({
+    	    method: method,
+    	    url: url,
+    	    data: data,
+	    });
     };
     
     /**
@@ -84,14 +88,15 @@ define(function(require) {
      * @return {*}
      */
     Ctrl.prototype.getProp_ = function(prop) {
-        return this.props_[this.getAction_()][prop] || this.props_[prop];
+        var actionConfig = this.props_[this.getAction_()] || {};
+        return actionConfig[prop] || this.props_[prop];
     };
     
     /**
      * @return {boolean}
      */
     Ctrl.prototype.isPressed = function() {
-		return !!this.props_[Prop.IS_PRESSED];
+		return !!this.props_['pressed'];
     };
     
 	return Ctrl;

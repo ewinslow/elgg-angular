@@ -12,7 +12,7 @@ define(function(require) {
 	
 	FactoryMap.prototype = {
 		get: function(key) {
-			if (!this.items_[key]) {
+			if (this.items_[key] == null) {
 				this.set(key, this.factory_());
 			}
 			

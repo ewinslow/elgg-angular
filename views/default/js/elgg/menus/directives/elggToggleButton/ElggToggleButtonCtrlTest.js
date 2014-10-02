@@ -1,52 +1,47 @@
 define(function(require) {
 	var Ctrl = require('./ElggToggleButtonCtrl');
-	var $http;
 	
-	beforeEach(function() {
-		$http = {
-			put: jasmine.createSpy(),
-			delete: jasmine.createSpy(),
-		};
-	});
-
 	describe('ElggToggleButtonCtrl', function() {
 		it('Can tell you whether it is currently pressed', function() {
-			var props = {'is_pressed': true};
+			var props = {'pressed': true};
 			var ctrl = new Ctrl(null, props);
 			
 			expect(ctrl.isPressed()).toBe(true);
 			
-			props['is_pressed'] = false;
+			props['pressed'] = false;
 			
 			expect(ctrl.isPressed()).toBe(false);
 		});
 		
 		it('Performs the configured action when clicked', function() {
 			var props = {
-				"is_pressed": false,
+				"pressed": false,
 				"href": "/base",
 				"press": {
 					"method": "put",
-					"params": {"press": true},
+					"data": {"press": true},
 				},
 				"unpress": {
 					"method": "delete",
 				},
 			};
 			
+			var $http = jasmine.createSpy('$http');
+			
 			var ctrl = new Ctrl($http, props);
 			
 			ctrl.click();
 			
-			expect($http.put).toHaveBeenCalledWith(props.href, props.press.params);
+			expect($http).toHaveBeenCalledWith({method: 'put', url: '/base', data: {'press': true}});
 			
 			ctrl.click();
 			
-			expect($http.delete).toHaveBeenCalledWith(props.href, jasmine.any());
+			expect($http).toHaveBeenCalledWith({method: 'delete', url: '/base'});
 		});
 		
 		it('eagerly (synchronously) updates the isPressed state when clicked', function() {
-			var props = {'is_pressed': true};
+			var props = {'pressed': true};
+			var $http = jasmine.createSpy('$http');
 			var ctrl = new Ctrl($http, props);
 			
 			expect(ctrl.isPressed()).toBe(true);
